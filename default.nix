@@ -2,15 +2,9 @@
   relativePath = path: assert types.path.check path;
     with builtins; strings.removePrefix (toString config.impurity.configRoot) (toString path);
 
-  impurityGroupEnabled = group: let
-    impurityGroups = strings.splitString " " (builtins.getEnv "IMPURITY_GROUPS");
-  in group == "*" || builtins.elem group impurityGroups;
+  impurityGroupEnabled = group: true;
 
-  impurePath = let
-    impurePathEnv = builtins.getEnv "IMPURITY_PATH";
-  in if impurePathEnv == ""
-     then throw "impurity.enable is true but IMPURITY_PATH is not set"
-     else impurePathEnv;
+  impurePath = "/home/neg/src/impurity.nix";
 
   createImpurePath = path: let
     relative = (relativePath path);
